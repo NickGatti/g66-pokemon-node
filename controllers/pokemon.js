@@ -26,10 +26,13 @@ module.exports = {
     },
 
     showPokemon: function ( req, res, next ) {
-        knex( 'pokemon ' )
-            .where( 'id', req.params.id )
+        knex( 'pokemon' )
+            .where( 'pokemon.id', req.params.id )
+            .select( 'pokemon.name', 'pokemon.cp', 'pokemon.in_gym', 'trainers.name AS trainer_name' )
+            .join( 'trainers', 'trainers.id', 'pokemon.trainer_id' )
+
             .then( ( pokemonData ) => {
-                res.render( 'index', {
+                res.render( 'showPokemon', {
                     title: pokemonData[ 0 ].name,
                     pokemon: pokemonData[ 0 ]
                 } )
