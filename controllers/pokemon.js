@@ -23,5 +23,17 @@ module.exports = {
             } ).then( () => {
                 res.redirect( '/home' );
             } )
+    },
+
+    showPokemon: function ( req, res, next ) {
+        knex( 'pokemon ' )
+            .where( 'id', req.params.id )
+            .then( ( pokemonData ) => {
+                res.render( 'index', {
+                    title: pokemonData[ 0 ].name,
+                    pokemon: pokemonData[ 0 ]
+                } )
+            } )
     }
+
 };

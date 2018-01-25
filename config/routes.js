@@ -12,4 +12,6 @@ module.exports = function ( app ) {
 
     app.post( '/pokemon/add', pokemon.addPokemon )
 
+    app.get( '/pokemon/view/:id', pokemon.showPokemon )
+
 }
