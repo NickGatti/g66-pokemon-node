@@ -3,15 +3,33 @@ const knex = require( "../db/knex.js" );
 module.exports = {
 
     viewPokemon: function ( req, res, next ) {
-        knex( 'pokemon' ).then( ( pokemonData ) => {
-            knex( 'trainers' ).then( ( trainersData ) => {
-                res.render( 'index', {
-                    title: 'Add a Pokemon',
-                    trainers: trainersData,
-                    pokemon: pokemonData
-                } );
+        function viewPage() {
+            knex( 'pokemon' ).then( ( pokemonData ) => {
+                knex( 'trainers' ).then( ( trainersData ) => {
+                    res.render( 'index', {
+                        title: 'Add a Pokemon',
+                        trainers: trainersData,
+                        pokemon: pokemonData,
+                        gym_ids: req.session.user.gym
+                    } );
+                } )
             } )
-        } )
+        }
+
+        if ( !req.session.user ) {
+            req.session.user = {}
+            req.session.user.gym = {
+                p1: null,
+                p2: null
+            }
+            req.session.save( function () {
+                console.log( 'No session found' );
+                viewPage()
+            } )
+        } else {
+            console.log( 'Session found' );
+            viewPage()
+        }
     },
 
     addPokemon: function ( req, res, next ) {

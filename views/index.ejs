@@ -95,15 +95,25 @@
                                             </p>
                                             <p>Gym status:
 
-                                                <% if (pokemon[i].in_gym ) { %>
+                                                <% let inGym = false %>
+                                                    <% for (let key in gym_ids) { %>
 
-                                                    In Gym
+                                                        <% if (gym_ids[key]) { %>
 
-                                                    <% } else { %>
+                                                            <% if (gym_ids[key].id == pokemon[i].id ) inGym = true %>
 
-                                                        Not in Gym
+                                                                <% } %>
 
-                                                        <% } %>
+                                                                    <% } %>
+                                                                        <% if (inGym) { %>
+
+                                                                            In Gym
+
+                                                                            <% } else { %>
+
+                                                                                Not in Gym
+
+                                                                                <% } %>
 
                                             </p>
                                             <p>Trainer:
