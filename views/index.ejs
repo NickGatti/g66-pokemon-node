@@ -111,49 +111,53 @@
 
                                                                         <% } else { %>
 
-                                                                            <% if (!gym.full) { %>
-                                                                                <form class="" action="/gym/assign/<%= pokemon[i].id %>" method="post">
+                                                                            here
 
-                                                                                    <div class="row">
-                                                                                        <div class="col m6">
-                                                                                            Assign to gym:
+                                                                            <%= gym.full %>
+
+                                                                                <% if (!gym.full) { %>
+                                                                                    <form class="" action="/gym/assign/<%= pokemon[i].id %>" method="post">
+
+                                                                                        <div class="row">
+                                                                                            <div class="col m6">
+                                                                                                Assign to gym:
+                                                                                            </div>
+                                                                                            <div class="col m6">
+                                                                                                <input type="submit" class="green-text" name="" value="X">
+                                                                                            </div>
                                                                                         </div>
-                                                                                        <div class="col m6">
-                                                                                            <input type="submit" class="green-text" name="" value="X">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </form>
-                                                                                <% } %>
+                                                                                    </form>
                                                                                     <% } %>
+                                                                                        <% } %>
 
 
-                                                                                        <p>Trainer:
+                                                                                            <p>Trainer:
 
-                                                                                            <% for (let z = 0; z < trainers.length; z++) { %>
+                                                                                                <% for (let z = 0; z < trainers.length; z++) { %>
 
-                                                                                                <% if (pokemon[i].trainer_id === trainers[z].id) { %>
-                                                                                                    <%= trainers[z].name %>
-                                                                                                        <% } %>
-
+                                                                                                    <% if (pokemon[i].trainer_id === trainers[z].id) { %>
+                                                                                                        <%= trainers[z].name %>
                                                                                                             <% } %>
 
-                                                                                        </p>
-                                                                                        <% if (title === "Add a Pokemon") { %>
-                                                                                            <div class="row">
-                                                                                                <div class="col m12">
-                                                                                                    <form class="" action="/pokemon/edit/<%= pokemon[i].id %>" method="get">
-                                                                                                        <input type="submit" class="waves-effect light-blue darken-2 waves-light btn z-depth-3" value="Edit">
-                                                                                                    </form>
+                                                                                                                <% } %>
+
+                                                                                            </p>
+                                                                                            <% if (title === "Add a Pokemon") { %>
+                                                                                                <div class="row">
+                                                                                                    <div class="col m12">
+                                                                                                        <form class="" action="/pokemon/edit/<%= pokemon[i].id %>" method="get">
+                                                                                                            <input type="submit" class="waves-effect light-blue darken-2 waves-light btn z-depth-3" value="Edit">
+                                                                                                        </form>
+                                                                                                    </div>
                                                                                                 </div>
-                                                                                            </div>
-                                                                                            <div class="row">
-                                                                                                <div class="col m12">
-                                                                                                    <form class="" action="/pokemon/delete/<%= pokemon[i].id %>" method="post">
-                                                                                                        <input type="submit" class="waves-effect blue darken-3 waves-light btn z-depth-3" value="Delete">
-                                                                                                    </form>
+                                                                                                <div class="row">
+                                                                                                    <div class="col m12">
+                                                                                                        <form class="" action="/pokemon/delete/<%= pokemon[i].id %>" method="post">
+                                                                                                            <input type="submit" class="waves-effect blue darken-3 waves-light btn z-depth-3" value="Delete">
+                                                                                                        </form>
+                                                                                                    </div>
                                                                                                 </div>
-                                                                                            </div>
-                                                                                            <% } %>
+                                                                                                <% } %>
                                         </div>
                                     </div>
                                 </div>

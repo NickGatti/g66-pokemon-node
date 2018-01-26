@@ -11,9 +11,13 @@ module.exports = {
             req.session.user.gym.p2 = {
                 id: req.params.id
             }
-        } else {
+        }
+
+        if ( req.session.user.gym.p1 && req.session.user.gym.p2 ) {
             req.session.user.gym.full = true
         }
+
+        console.log( req.session.user.gym.full );
 
         req.session.save( function () {
             res.redirect( '/pokemon' );
