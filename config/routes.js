@@ -21,6 +21,6 @@ module.exports = function ( app ) {
 
     app.post( '/pokemon/delete/:id', pokemon.deletePokemon )
 
-    app.post( '/gym/assign', gym.assign )
+    app.post( '/gym/assign/:id', gym.assign )
 
 }

@@ -10,7 +10,7 @@ module.exports = {
                         title: 'Add a Pokemon',
                         trainers: trainersData,
                         pokemon: pokemonData,
-                        gym_ids: req.session.user.gym
+                        gym: req.session.user.gym
                     } );
                 } )
             } )
@@ -20,7 +20,8 @@ module.exports = {
             req.session.user = {}
             req.session.user.gym = {
                 p1: null,
-                p2: null
+                p2: null,
+                full: false
             }
             req.session.save( function () {
                 console.log( 'No session found' );
