@@ -48,7 +48,7 @@
 
 			<h1><%= title %></h1>
 
-			<form class="" action="/pokemon/update" method="post">
+			<form class="" action="/pokemon/update/<%= pokemon.id %>" method="post">
 				Name: <input type="text" name="name" value="<%= pokemon.name %>"> Combat Power: <input type="number" name="cp" value="<%= pokemon.cp %>"> Gym status:
 				<select class="" name="in_gym">
           <% if (pokemon.in_gym) { %>
@@ -59,11 +59,11 @@
             <option value="true">In gym</option>
           <% } %>
         </select>
-				<select class="" name="trainer">
+				<select class="" name="trainer_id">
           <option value="<%= pokemon.trainer_name %>"><%= pokemon.trainer_name %></option>
           <% for (let i = 0; i < trainers.length; i++) { %>
             <% if (trainers[i].name != pokemon.trainer_name) { %>
-              <option value="<%= trainers[i].name %>"><%= trainers[i].name %></option>
+              <option value="<%= trainers[i].id %>"><%= trainers[i].name %></option>
             <% } %>
           <% } %>
         </select>
@@ -92,9 +92,9 @@
 	</body>
 
 	<script type="text/javascript">
-		$( document ).ready( function () {
-			$( 'select' ).material_select();
-		} );
+		$(document).ready(function() {
+			$('select').material_select();
+		});
 	</script>
 
 </html>

@@ -42,7 +42,7 @@ module.exports = {
     editPokemon: function ( req, res, next ) {
         knex( 'pokemon' )
             .where( 'pokemon.id', req.params.id )
-            .select( 'pokemon.name', 'pokemon.cp', 'pokemon.in_gym', 'trainers.name AS trainer_name' )
+            .select( 'pokemon.id', 'pokemon.name', 'pokemon.cp', 'pokemon.in_gym', 'trainers.name AS trainer_name' )
             .join( 'trainers', 'trainers.id', 'pokemon.trainer_id' )
             .then( ( pokemonData ) => {
                 knex( 'trainers' ).then( ( trainerData ) => {
@@ -52,6 +52,20 @@ module.exports = {
                         trainers: trainerData
                     } )
                 } )
+            } )
+    },
+
+    updatePokemon: function ( req, res, next ) {
+        knex( 'pokemon' )
+            .update( {
+                name: req.body.name,
+                trainer_id: req.body.trainer_id,
+                cp: req.body.cp,
+                in_gym: req.body.in_gym
+            } )
+            .where( 'id', req.params.id )
+            .then( () => {
+                res.redirect( `/pokemon/view/${req.params.id}` );
             } )
     }
 
