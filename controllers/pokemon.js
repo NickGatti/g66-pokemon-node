@@ -76,6 +76,6 @@ module.exports = {
             .then( () => {
                 res.redirect( '/pokemon' );
             } )
-    }
+    },
 
 };

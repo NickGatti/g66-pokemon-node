@@ -3,6 +3,7 @@ const path = require( "path" );
 const app = express();
 const bodyParser = require( 'body-parser' );
 const port = process.env.PORT || 8000;
+app.use( express.static( __dirname + '/public' ) )
 app.use( bodyParser.json( { extended: true } ) );
 app.use( bodyParser.urlencoded( { extended: true } ) );
 
