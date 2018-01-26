@@ -8,10 +8,13 @@ module.exports = {
 
     homePage: function ( req, res, next ) {
         knex( 'pokemon' ).then( ( pokemonData ) => {
-            res.render( 'index', {
-                title: 'Pokemon',
-                pokemon: pokemonData
-            } );
+            knex( 'trainers' ).then( ( trainerData ) => {
+                res.render( 'index', {
+                    title: 'Pokemon',
+                    pokemon: pokemonData,
+                    trainers: trainerData
+                } );
+            } )
         } )
     }
 
