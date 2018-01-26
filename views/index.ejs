@@ -111,22 +111,22 @@
 
                                                                         <% } else { %>
 
-                                                                            here
+                                                                            <% if (!gym.full) { %>
+                                                                                <form class="" action="/gym/assign/<%= pokemon[i].id %>" method="post">
 
-                                                                            <%= gym.full %>
-
-                                                                                <% if (!gym.full) { %>
-                                                                                    <form class="" action="/gym/assign/<%= pokemon[i].id %>" method="post">
-
-                                                                                        <div class="row">
-                                                                                            <div class="col m6">
-                                                                                                Assign to gym:
-                                                                                            </div>
-                                                                                            <div class="col m6">
-                                                                                                <input type="submit" class="green-text" name="" value="X">
-                                                                                            </div>
+                                                                                    <div class="row">
+                                                                                        <div class="col m6">
+                                                                                            Assign to gym:
                                                                                         </div>
-                                                                                    </form>
+                                                                                        <div class="col m6">
+                                                                                            <input type="submit" class="green-text" name="" value="X">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </form>
+                                                                                <% } else {  %>
+
+                                                                                    <p>No gym space left</p>
+
                                                                                     <% } %>
                                                                                         <% } %>
 
