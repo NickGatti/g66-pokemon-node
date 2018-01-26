@@ -45,42 +45,49 @@
                 </div>
             </div>
 
+            <div class="container">
+                <h1><%= title %></h1>
+            </div>
 
-            <h1><%= title %></h1>
 
             <% if (title === "Add a Pokemon") { %>
 
-                <form class="" action="/pokemon/add" method="post">
-                    <input type="text" name="name" placeholder="Name">
-                    <input type="number" name="cp" placeholder="Combat Power">
-                    <select class="" name="in_gym">
-                      <option value="false">Not in gym</option>
-                      <option value="true">In gym</option>
-                    </select>
-                    <select class="" name="trainer_id">
-                  <% for (let i = 0; i < trainers.length; i++) { %>
-                <option value="<%= trainers[i].id %>">
-                    <%= trainers[i].name %>
-                </option>
-                <% } %>
-                    </select>
-                    <input type="submit" value="Add pokemon">
-                </form>
+                <br>
+                <br>
+                <br>
 
+                <div class="container">
+                    <form class="" action="/pokemon/add" method="post">
+                        <input type="text" name="name" placeholder="Name">
+                        <input type="number" name="cp" placeholder="Combat Power">
+                        <select class="" name="in_gym">
+                        <option value="false">Not in gym</option>
+                        <option value="true">In gym</option>
+                    </select>
+                        <select class="" name="trainer_id">
+                        <% for (let i = 0; i < trainers.length; i++) { %>
+                          <option value="<%= trainers[i].id %>"><%= trainers[i].name %></option>
+                        <% } %>
+                    </select>
+                        <input type="submit" class="waves-effect light-blue lighten-2 waves-light btn" value="Add pokemon">
+                    </form>
+                </div>
+                <br>
+                <br>
+                <br>
                 <% } %>
-
 
                     <% if ( title === "Pokemon" || title === "Add a Pokemon") { %>
                         <div class="row">
                             <% for (let i = 0; i < pokemon.length; i++) { %>
-                                <div class="col s4">
+                                <div class="col m4">
                                     <div class="card indigo">
                                         <div class="card-content white-text">
                                             <a href="/pokemon/view/<%= pokemon[i].id %>"><span class="card-title"><%= pokemon[i].name %></span></a>
                                             <p>Trainable Pokemon</p>
                                             Stats:
                                         </div>
-                                        <div class="card-action">
+                                        <div class="card-action lime-text text-accent-4">
                                             <p>Attack power:
                                                 <%= pokemon[i].cp %>
                                             </p>
@@ -109,8 +116,20 @@
 
                                             </p>
                                             <% if (title === "Add a Pokemon") { %>
-                                                <a href="/pokemon/edit/<%= pokemon[i].id %>">Edit</a>
-                                                <a href="#">Delete</a>
+                                                <div class="row">
+                                                    <div class="col m12">
+                                                        <form class="" action="/pokemon/edit/<%= pokemon[i].id %>" method="get">
+                                                            <input type="submit" class="waves-effect light-blue darken-2 waves-light btn" value="Edit">
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col m12">
+                                                        <form class="" action="/pokemon/delete/<%= pokemon[i].id %>" method="post">
+                                                            <input type="submit" class="waves-effect blue darken-3 waves-light btn" value="Delete">
+                                                        </form>
+                                                    </div>
+                                                </div>
                                                 <% } %>
                                         </div>
                                     </div>

@@ -45,33 +45,34 @@
 				</div>
 			</div>
 
+			<div class="container">
+				<h1><%= title %></h1>
 
-			<h1><%= title %></h1>
+				<form class="" action="/pokemon/update/<%= pokemon.id %>" method="post">
+					Name: <input type="text" name="name" value="<%= pokemon.name %>"> Combat Power: <input type="number" name="cp" value="<%= pokemon.cp %>"> Gym status:
+					<select class="" name="in_gym">
+			<% if (pokemon.in_gym) { %>
+				<option value="true">In gym</option>
+				<option value="false">Not in gym</option>
+			<% } else { %>
+				<option value="false">Not in gym</option>
+				<option value="true">In gym</option>
+			<% } %>
+		</select>
+					<select class="" name="trainer_id">
+			<option value="<%= pokemon.trainer_name %>"><%= pokemon.trainer_name %></option>
+			<% for (let i = 0; i < trainers.length; i++) { %>
+				<% if (trainers[i].name != pokemon.trainer_name) { %>
+					<option value="<%= trainers[i].id %>"><%= trainers[i].name %></option>
+				<% } %>
+			<% } %>
+		</select>
+					<input type="submit" class="waves-effect light-blue darken-2 waves-light btn" value="Update Pokemon">
+				</form>
 
-			<form class="" action="/pokemon/update/<%= pokemon.id %>" method="post">
-				Name: <input type="text" name="name" value="<%= pokemon.name %>"> Combat Power: <input type="number" name="cp" value="<%= pokemon.cp %>"> Gym status:
-				<select class="" name="in_gym">
-          <% if (pokemon.in_gym) { %>
-            <option value="true">In gym</option>
-            <option value="false">Not in gym</option>
-          <% } else { %>
-            <option value="false">Not in gym</option>
-            <option value="true">In gym</option>
-          <% } %>
-        </select>
-				<select class="" name="trainer_id">
-          <option value="<%= pokemon.trainer_name %>"><%= pokemon.trainer_name %></option>
-          <% for (let i = 0; i < trainers.length; i++) { %>
-            <% if (trainers[i].name != pokemon.trainer_name) { %>
-              <option value="<%= trainers[i].id %>"><%= trainers[i].name %></option>
-            <% } %>
-          <% } %>
-        </select>
-				<input type="submit" value="Update Pokemon">
-			</form>
 
-			<br>
-			<br>
+			</div>
+
 			<br>
 			<br>
 			<br>

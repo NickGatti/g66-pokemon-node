@@ -67,6 +67,15 @@ module.exports = {
             .then( () => {
                 res.redirect( `/pokemon/view/${req.params.id}` );
             } )
+    },
+
+    deletePokemon: function ( req, res, next ) {
+        knex( 'pokemon' )
+            .where( 'id', req.params.id )
+            .del()
+            .then( () => {
+                res.redirect( '/pokemon' );
+            } )
     }
 
 };

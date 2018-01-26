@@ -18,4 +18,6 @@ module.exports = function ( app ) {
 
     app.post( '/pokemon/update/:id', pokemon.updatePokemon )
 
+    app.post( '/pokemon/delete/:id', pokemon.deletePokemon )
+
 }
