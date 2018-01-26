@@ -2,7 +2,7 @@ const knex = require( "../db/knex.js" );
 
 module.exports = {
 
-    pokemonForm: function ( req, res, next ) {
+    viewPokemon: function ( req, res, next ) {
         knex( 'pokemon' ).then( ( pokemonData ) => {
             knex( 'trainers' ).then( ( trainersData ) => {
                 res.render( 'index', {

@@ -8,7 +8,7 @@ module.exports = function ( app ) {
 
     app.get( '/home', index.homePage )
 
-    app.get( '/pokemon', pokemon.pokemonForm )
+    app.get( '/pokemon', pokemon.viewPokemon )
 
     app.post( '/pokemon/add', pokemon.addPokemon )
 
