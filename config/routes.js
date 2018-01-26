@@ -1,6 +1,7 @@
 //Update the name of the controller below and rename the file.
 const index = require( "../controllers/index.js" );
 const pokemon = require( "../controllers/pokemon.js" );
+const gym = require( "../controllers/gym.js" );
 
 module.exports = function ( app ) {
 
@@ -19,5 +20,7 @@ module.exports = function ( app ) {
     app.post( '/pokemon/update/:id', pokemon.updatePokemon )
 
     app.post( '/pokemon/delete/:id', pokemon.deletePokemon )
+
+    app.post( '/gym/assign', gym.assign )
 
 }

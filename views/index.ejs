@@ -93,56 +93,66 @@
                                             <p>Attack power:
                                                 <%= pokemon[i].cp %>
                                             </p>
-                                            <p>Gym status:
 
-                                                <% let inGym = false %>
-                                                    <% for (let key in gym_ids) { %>
 
-                                                        <% if (gym_ids[key]) { %>
+                                            <% let inGym = false %>
+                                                <% for (let key in gym_ids) { %>
 
-                                                            <% if (gym_ids[key].id == pokemon[i].id ) inGym = true %>
+                                                    <% if (gym_ids[key]) { %>
 
-                                                                <% } %>
+                                                        <% if (gym_ids[key].id == pokemon[i].id ) inGym = true %>
 
-                                                                    <% } %>
-                                                                        <% if (inGym) { %>
-
-                                                                            In Gym
-
-                                                                            <% } else { %>
-
-                                                                                Not in Gym
-
-                                                                                <% } %>
-
-                                            </p>
-                                            <p>Trainer:
-
-                                                <% for (let z = 0; z < trainers.length; z++) { %>
-
-                                                    <% if (pokemon[i].trainer_id === trainers[z].id) { %>
-                                                        <%= trainers[z].name %>
                                                             <% } %>
 
                                                                 <% } %>
+                                                                    <% if (inGym) { %>
 
-                                            </p>
-                                            <% if (title === "Add a Pokemon") { %>
-                                                <div class="row">
-                                                    <div class="col m12">
-                                                        <form class="" action="/pokemon/edit/<%= pokemon[i].id %>" method="get">
-                                                            <input type="submit" class="waves-effect light-blue darken-2 waves-light btn z-depth-3" value="Edit">
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col m12">
-                                                        <form class="" action="/pokemon/delete/<%= pokemon[i].id %>" method="post">
-                                                            <input type="submit" class="waves-effect blue darken-3 waves-light btn z-depth-3" value="Delete">
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                                <% } %>
+                                                                        <p>Gym status: In Gym</p>
+
+                                                                        <% } else { %>
+
+                                                                            <form class="" action="/gym/assign" method="post">
+
+                                                                                <div class="row">
+                                                                                    <div class="col m6">
+                                                                                        Assign to gym:
+                                                                                    </div>
+                                                                                    <div class="col m6">
+                                                                                        <a class="btn-floating btn-small waves-effect waves-light blue"><i class="material-icons">add</i></a>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </form>
+
+                                                                            <% } %>
+
+
+                                                                                <p>Trainer:
+
+                                                                                    <% for (let z = 0; z < trainers.length; z++) { %>
+
+                                                                                        <% if (pokemon[i].trainer_id === trainers[z].id) { %>
+                                                                                            <%= trainers[z].name %>
+                                                                                                <% } %>
+
+                                                                                                    <% } %>
+
+                                                                                </p>
+                                                                                <% if (title === "Add a Pokemon") { %>
+                                                                                    <div class="row">
+                                                                                        <div class="col m12">
+                                                                                            <form class="" action="/pokemon/edit/<%= pokemon[i].id %>" method="get">
+                                                                                                <input type="submit" class="waves-effect light-blue darken-2 waves-light btn z-depth-3" value="Edit">
+                                                                                            </form>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="row">
+                                                                                        <div class="col m12">
+                                                                                            <form class="" action="/pokemon/delete/<%= pokemon[i].id %>" method="post">
+                                                                                                <input type="submit" class="waves-effect blue darken-3 waves-light btn z-depth-3" value="Delete">
+                                                                                            </form>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <% } %>
                                         </div>
                                     </div>
                                 </div>
