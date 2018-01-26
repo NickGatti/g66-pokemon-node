@@ -14,4 +14,6 @@ module.exports = function ( app ) {
 
     app.get( '/pokemon/view/:id', pokemon.showPokemon )
 
+    app.get( '/pokemon/edit/:id', pokemon.editPokemon )
+
 }

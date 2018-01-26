@@ -1,6 +1,7 @@
 const knex = require( "../db/knex.js" );
 
 module.exports = {
+
     pokemonForm: function ( req, res, next ) {
         knex( 'pokemon' ).then( ( pokemonData ) => {
             knex( 'trainers' ).then( ( trainersData ) => {
@@ -30,11 +31,26 @@ module.exports = {
             .where( 'pokemon.id', req.params.id )
             .select( 'pokemon.name', 'pokemon.cp', 'pokemon.in_gym', 'trainers.name AS trainer_name' )
             .join( 'trainers', 'trainers.id', 'pokemon.trainer_id' )
-
             .then( ( pokemonData ) => {
                 res.render( 'showPokemon', {
                     title: pokemonData[ 0 ].name,
                     pokemon: pokemonData[ 0 ]
+                } )
+            } )
+    },
+
+    editPokemon: function ( req, res, next ) {
+        knex( 'pokemon' )
+            .where( 'pokemon.id', req.params.id )
+            .select( 'pokemon.name', 'pokemon.cp', 'pokemon.in_gym', 'trainers.name AS trainer_name' )
+            .join( 'trainers', 'trainers.id', 'pokemon.trainer_id' )
+            .then( ( pokemonData ) => {
+                knex( 'trainers' ).then( ( trainerData ) => {
+                    res.render( 'editPokemon', {
+                        title: pokemonData[ 0 ].name,
+                        pokemon: pokemonData[ 0 ],
+                        trainers: trainerData
+                    } )
                 } )
             } )
     }
