@@ -23,4 +23,6 @@ module.exports = function ( app ) {
 
     app.post( '/gym/assign/:id', gym.assign )
 
+    app.post( '/gym/remove/:id', gym.remove )
+
 }

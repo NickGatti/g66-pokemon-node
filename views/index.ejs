@@ -12,6 +12,12 @@
         <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.min.css">
         <!-- <link rel='stylesheet' href='/stylesheets/style.css' /> -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+
+        <style media="screen">
+            .card-action {
+                min-height: 315px !important;
+            }
+        </style>
     </head>
 
     <body>
@@ -80,7 +86,88 @@
                 <% } %>
 
                     <% if ( title === "Pokemon" || title === "Add a Pokemon") { %>
+
+
                         <div class="row">
+
+                            <h4>Pokemon in Gym</h4>
+
+                            <% for (let key in gym) { %>
+
+
+                                <% for (let i = 0; i < pokemon.length; i++) { %>
+
+                                    <% if (gym[key]) { %>
+
+                                        <% if (gym[key].id == pokemon[i].id) { %>
+                                            <div class="col">
+
+                                                <div class="card indigo z-depth-3">
+                                                    <div class="card-content white-text">
+                                                        <a href="/pokemon/view/<%= pokemon[i].id %>"><span class="card-title"><%= pokemon[i].name %></span></a>
+                                                        <p>Trainable Pokemon</p>
+                                                        Stats:
+                                                    </div>
+                                                    <div class="card-action lime-text text-accent-4">
+                                                        <form class="" action="/gym/remove/<%= pokemon[i].id %>" method="post">
+                                                            <p>Attack power:
+                                                                <%= pokemon[i].cp %>
+                                                            </p>
+
+                                                            <div class="row">
+                                                                <div class="col m6">
+                                                                    Remove from gym:
+                                                                </div>
+                                                                <div class="col m6">
+                                                                    <input type="submit" class="green-text" name="" value="X">
+                                                                </div>
+                                                            </div>
+                                                        </form>
+
+                                                        <p>Trainer:
+
+                                                            <% for (let z = 0; z < trainers.length; z++) { %>
+
+                                                                <% if (pokemon[i].trainer_id === trainers[z].id) { %>
+                                                                    <%= trainers[z].name %>
+                                                                        <% } %>
+
+                                                                            <% } %>
+
+                                                        </p>
+                                                        <div class="row">
+                                                            <div class="col m12">
+                                                                <form class="" action="/pokemon/edit/<%= pokemon[i].id %>" method="get">
+                                                                    <input type="submit" class="waves-effect light-blue darken-2 waves-light btn z-depth-3" value="Edit">
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col m12">
+                                                                <form class="" action="/pokemon/delete/<%= pokemon[i].id %>" method="post">
+                                                                    <input type="submit" class="waves-effect blue darken-3 waves-light btn z-depth-3" value="Delete">
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <% } %>
+
+                                                <% } %>
+
+                                                    <% } %>
+                                                        <% } %>
+
+                        </div>
+
+
+
+                        <div class="row">
+                            <div class="container">
+                                <h4>All Pokemon</h4>
+                            </div>
+
                             <% for (let i = 0; i < pokemon.length; i++) { %>
                                 <div class="col m4">
                                     <div class="card indigo z-depth-3">
@@ -108,6 +195,8 @@
                                                                     <% if (inGym) { %>
 
                                                                         <p>Gym status: In Gym</p>
+
+                                                                        <br>
 
                                                                         <% } else { %>
 
