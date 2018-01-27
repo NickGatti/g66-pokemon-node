@@ -28,4 +28,6 @@ module.exports = function ( app ) {
 
     app.get( '/trainers', trainers.view )
 
+    app.get( '/gym/home', gym.home )
+
 }

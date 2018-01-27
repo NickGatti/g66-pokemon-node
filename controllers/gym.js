@@ -74,6 +74,16 @@ module.exports = {
             res.redirect( '/pokemon' );
         } )
 
+    },
+
+    home: function ( req, res, next ) {
+        knex( 'pokemon' )
+            .then( ( pokemonData ) => {
+                res.render( 'gymHome', {
+                    title: 'The Gym',
+                    pokemon: pokemonData
+                } );
+            } )
     }
 
 };
