@@ -145,80 +145,99 @@
 
 											<% } %>
 
-												<% for (let key in gym) { %>
+												<% let oneWinner = false %>
+													<% let oneLoser = false %>
 
-													<% for (let i = 0; i < pokemon.length; i++) { %>
+														<% for (let key in gym) { %>
 
-														<% if (pokemon[i].id == gym[key].id) { %>
+															<% for (let i = 0; i < pokemon.length; i++) { %>
 
-															<% if (gym.winner == pokemon[i].id) { %>
+																<% if (pokemon[i].id == gym[key].id) { %>
 
-																<div id="gymWinner"
-																     class="col s6">
+																	<% if (gym.winner.id == pokemon[i].id && oneWinner === false && !gym.halFull) { %>
 
-																	<% } else if (gym.winner != false && gym.winner != pokemon[i].id && gym.winner != 'show') { %>
-
-																		<div id="gymLoser"
+																		<div id="gymWinner"
 																		     class="col s6">
-
-																			<% } else { %>
-
-																				<div class="col s6">
-
-																					<% } %>
-																						<div class="card indigo z-depth-3">
-																							<div class="card-content white-text">
-																								<h2 class="blue-text text-accent-4"><%= pokemon[i].name %></h2>
-																								<h4>Trainable Pokemon</h4> Stats:
-																							</div>
-																							<div class="card-action lime-text text-accent-4">
-																								<h4>Attack power:
-                                <%= pokemon[i].cp %>
-                            </h4>
-																								<h4>Gym status: In Gym</h4>
-																								<h4>Trainer:
-                                <%= pokemon[i].trainer_name %>
-                            </h4>
-																							</div>
-																						</div>
+																			<div class="card indigo z-depth-3">
+																				<div class="card-content white-text">
+																					<h2 class="blue-text text-accent-4"><%= pokemon[i].name %></h2>
+																					<h4 class="winTitle">Trainable Pokemon</h4> Stats:
 																				</div>
-																				<% } %>
-																					<% } %>
-																						<% } %>
-																		</div>
-
-																		<div class="container">
-																			<div class="row">
-																				<form class="col s12 center-align"
-																				      action="/gym/battle"
-																				      method="post">
-																					<input type="submit"
-																					       class="waves-effect red lighten-2 waves-light btn z-depth-3"
-																					       value="Battle">
-																				</form>
-
+																				<div class="card-action lime-text text-accent-4">
+																					<h4>Attack power:
+												 <%= pokemon[i].cp %>
+										 </h4>
+																					<h4>Gym status: In Gym</h4>
+																					<h4>Trainer:
+												 <%= pokemon[i].trainer_name %>
+										 </h4>
+																				</div>
 																			</div>
 																		</div>
-																		<% } %>
 
-																</div>
+																		<% oneWinner = true %>
 
-																<div class="fillAreaPokemon">
+																			<% } else if (gym.winner.id != pokemon[i].id && oneLoser === false && !gym.halFull) { %>
 
-																</div>
+																				<div id="gymLoser"
+																				     class="col s6">
+																					<div class="card indigo z-depth-3">
+																						<div class="card-content white-text">
+																							<h2 class="blue-text text-accent-4"><%= pokemon[i].name %></h2>
+																							<h4 class="winTitle">Trainable Pokemon</h4> Stats:
+																						</div>
+																						<div class="card-action lime-text text-accent-4">
+																							<h4>Attack power:
+															 <%= pokemon[i].cp %>
+													 </h4>
+																							<h4>Gym status: In Gym</h4>
+																							<h4>Trainer:
+															 <%= pokemon[i].trainer_name %>
+													 </h4>
+																						</div>
+																					</div>
+																				</div>
 
-																<div class="pokemon-content mdl-layout__content">
-																	<div class="app-content pokemon-wear-section">
-																	</div>
+																				<% oneLoser = false %>
 
-																	<footer class="pokemon-footer indigo darken-3 z-depth-3 mdl-mega-footer">
-																		Copyright Growth Mindset
-																	</footer>
-																</div>
+																					<% } %>
+																						<% } %>
+																							<% } %>
+																								<% } %>
 									</div>
-									<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-									<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-									<!-- <script src="https://code.getmdl.io/1.1.3/material.min.js"></script> -->
+
+									<div class="container">
+										<div class="row">
+											<form class="col s12 center-align"
+											      action="/gym/battle"
+											      method="post">
+												<input type="submit"
+												       class="waves-effect red lighten-2 waves-light btn z-depth-3"
+												       value="Battle">
+											</form>
+
+										</div>
+									</div>
+									<% } %>
+
+			</div>
+
+			<div class="fillAreaPokemon">
+
+			</div>
+
+			<div class="pokemon-content mdl-layout__content">
+				<div class="app-content pokemon-wear-section">
+				</div>
+
+				<footer class="pokemon-footer indigo darken-3 z-depth-3 mdl-mega-footer">
+					Copyright Growth Mindset
+				</footer>
+			</div>
+		</div>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+		<!-- <script src="https://code.getmdl.io/1.1.3/material.min.js"></script> -->
 
 	</body>
 
@@ -231,17 +250,12 @@
 
 		document.querySelector('#hideMe').style.display = 'block'
 
-		let newH2 = document.createElement('h2')
+		document.querySelector('#gymLoser').style.display = 'none'
 
-		newH2.style.innerText = 'Winner!'
+		document.querySelector('#gymWinner').listClasses.remove('s6')
+		document.querySelector('#gymWinner').listClasses.add('s12')
 
-		document.querySelector('#gymWinner').appendChild('newH2')
-
-		newH2 = document.createElement('h2')
-
-		newH2.style.innerText = 'Loser!'
-
-		document.querySelector('#gymLoser').appendChild('newH2')
+		document.querySelector('#gymWinner>.winTitle').innerText = 'Winner'
 
 		<% } %>
 	</script>

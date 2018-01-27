@@ -93,7 +93,6 @@ module.exports = {
                 .join( 'trainers', 'trainers.id', 'pokemon.trainer_id' )
                 .then( ( pokemonData ) => {
 
-
                     let output = []
                     for ( let key in req.session.user.gym ) {
                         for ( let i = 0; i < pokemonData.length; i++ ) {

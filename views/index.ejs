@@ -119,9 +119,10 @@
 
                                 <% for (let i = 0; i < pokemon.length; i++) { %>
 
-                                    <% if (gym[key]) { %>
+                                    <% if (gym[key] && (key == 'p1' || key == 'p2')) { %>
 
                                         <% if (gym[key].id == pokemon[i].id) { %>
+
                                             <div class="col">
 
                                                 <div class="card indigo z-depth-3">
