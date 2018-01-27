@@ -32,4 +32,5 @@ module.exports = function ( app ) {
 
     app.post( '/gym/homeAssign', gym.homeAssign )
 
+    app.post( '/gym/battle', gym.battle )
 }

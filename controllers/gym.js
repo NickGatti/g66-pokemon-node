@@ -92,12 +92,50 @@ module.exports = {
                 .select( 'pokemon.id', 'pokemon.name', 'pokemon.cp', 'trainers.name AS trainer_name' )
                 .join( 'trainers', 'trainers.id', 'pokemon.trainer_id' )
                 .then( ( pokemonData ) => {
-                    res.render( 'gymHome', {
-                        title: 'The Gym',
-                        pokemon: pokemonData,
-                        gym: req.session.user.gym,
-                        actionFlag: true
-                    } );
+
+
+                    let output = []
+                    for ( let key in req.session.user.gym ) {
+                        for ( let i = 0; i < pokemonData.length; i++ ) {
+                            if ( pokemonData[ i ].id == req.session.user.gym[ key ].id ) {
+                                if ( output[ 0 ] ) {
+                                    if ( output[ 0 ].id != pokemonData[ i ].id )
+                                        output.push( {
+                                            id: pokemonData[ i ].id,
+                                            cp: pokemonData[ i ].cp
+                                        } )
+                                } else {
+                                    output.push( {
+                                        id: pokemonData[ i ].id,
+                                        cp: pokemonData[ i ].cp
+                                    } )
+                                }
+                            }
+                        }
+                    }
+
+                    if ( output[ 0 ].cp > output[ 1 ].cp ) {
+                        req.session.user.gym.winner = {
+                            id: output[ 0 ].id,
+                            cp: output[ 0 ].cp + 20
+                        }
+                    } else if ( output[ 0 ].cp == output[ 1 ].cp ) {
+                        req.session.user.gym.winner = false
+                    } else {
+                        req.session.user.gym.winner = {
+                            id: output[ 1 ].id,
+                            cp: output[ 1 ].cp + 20
+                        }
+                    }
+
+                    req.session.save( () => {
+                        res.render( 'gymHome', {
+                            title: 'The Gym',
+                            pokemon: pokemonData,
+                            gym: req.session.user.gym,
+                            actionFlag: true
+                        } );
+                    } )
                 } )
             return
         }
@@ -133,6 +171,38 @@ module.exports = {
                 res.redirect( '/gym/home' );
             } )
         }
+    },
+
+    battle: function ( req, res, next ) {
+        if ( !checkSession( req ) ) res.redirect( '/pokemon' );
+        if ( !req.session.user.gym.winner ) return
+        knex( 'pokemon' )
+            .where( 'id', req.session.user.gym.winner.id )
+            .update( {
+                cp: req.session.user.gym.winner.cp
+            } )
+            .then( () => {
+
+                console.log( 'here' );
+
+                knex( 'pokemon' )
+                    .select( 'pokemon.id', 'pokemon.name', 'pokemon.cp', 'trainers.name AS trainer_name' )
+                    .join( 'trainers', 'trainers.id', 'pokemon.trainer_id' )
+                    .then( ( pokemonData ) => {
+
+
+                        req.session.user.gym.winner = 'show'
+
+                        req.session.save( () => {
+                            res.render( 'gymHome', {
+                                title: 'The Gym',
+                                pokemon: pokemonData,
+                                gym: req.session.user.gym,
+                                actionFlag: true
+                            } );
+                        } )
+                    } )
+            } )
     }
 
 };

@@ -27,6 +27,10 @@
 			.card-action {
 				min-height: 300px;
 			}
+
+			#hideMe {
+				display: none;
+			}
 		</style>
 	</head>
 
@@ -134,66 +138,87 @@
 
 									<div class="row">
 
-										<% for (let key in gym) { %>
+										<% if (gym.winner == false) { %>
 
-											<% for (let i = 0; i < pokemon.length; i++) { %>
+											<h2 class="red-text"
+											    id='hideMe'>Tie</h2>
 
-												<% if (pokemon[i].id == gym[key].id) { %>
+											<% } %>
 
-													<div class="col s6">
-														<div class="card indigo z-depth-3">
-															<div class="card-content white-text">
-																<h2 class="blue-text text-accent-4"><%= pokemon[i].name %></h2>
-																<h4>Trainable Pokemon</h4> Stats:
-															</div>
-															<div class="card-action lime-text text-accent-4">
-																<h4>Attack power:
+												<% for (let key in gym) { %>
+
+													<% for (let i = 0; i < pokemon.length; i++) { %>
+
+														<% if (pokemon[i].id == gym[key].id) { %>
+
+															<% if (gym.winner == pokemon[i].id) { %>
+
+																<div id="gymWinner"
+																     class="col s6">
+
+																	<% } else if (gym.winner != false && gym.winner != pokemon[i].id && gym.winner != 'show') { %>
+
+																		<div id="gymLoser"
+																		     class="col s6">
+
+																			<% } else { %>
+
+																				<div class="col s6">
+
+																					<% } %>
+																						<div class="card indigo z-depth-3">
+																							<div class="card-content white-text">
+																								<h2 class="blue-text text-accent-4"><%= pokemon[i].name %></h2>
+																								<h4>Trainable Pokemon</h4> Stats:
+																							</div>
+																							<div class="card-action lime-text text-accent-4">
+																								<h4>Attack power:
                                 <%= pokemon[i].cp %>
                             </h4>
-																<h4>Gym status: In Gym</h4>
-																<h4>Trainer:
+																								<h4>Gym status: In Gym</h4>
+																								<h4>Trainer:
                                 <%= pokemon[i].trainer_name %>
                             </h4>
-															</div>
-														</div>
-													</div>
-													<% } %>
-														<% } %>
-															<% } %>
+																							</div>
+																						</div>
+																				</div>
+																				<% } %>
+																					<% } %>
+																						<% } %>
+																		</div>
+
+																		<div class="container">
+																			<div class="row">
+																				<form class="col s12 center-align"
+																				      action="/gym/battle"
+																				      method="post">
+																					<input type="submit"
+																					       class="waves-effect red lighten-2 waves-light btn z-depth-3"
+																					       value="Battle">
+																				</form>
+
+																			</div>
+																		</div>
+																		<% } %>
+
+																</div>
+
+																<div class="fillAreaPokemon">
+
+																</div>
+
+																<div class="pokemon-content mdl-layout__content">
+																	<div class="app-content pokemon-wear-section">
+																	</div>
+
+																	<footer class="pokemon-footer indigo darken-3 z-depth-3 mdl-mega-footer">
+																		Copyright Growth Mindset
+																	</footer>
+																</div>
 									</div>
-
-
-									<% } %>
-										<div class="container">
-											<div class="row">
-												<form class="col s12 center-align"
-												      action=/gym/battle
-												      method="post">
-													<input type="submit"
-													       class="waves-effect red lighten-2 waves-light btn z-depth-3"
-													       value="Battle">
-												</form>
-
-											</div>
-										</div>
-			</div>
-
-			<div class="fillAreaPokemon">
-
-			</div>
-
-			<div class="pokemon-content mdl-layout__content">
-				<div class="app-content pokemon-wear-section">
-				</div>
-
-				<footer class="pokemon-footer indigo darken-3 z-depth-3 mdl-mega-footer">
-					Copyright Growth Mindset
-				</footer>
-			</div>
-		</div>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-		<!-- <script src="https://code.getmdl.io/1.1.3/material.min.js"></script> -->
+									<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+									<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+									<!-- <script src="https://code.getmdl.io/1.1.3/material.min.js"></script> -->
 
 	</body>
 
@@ -202,6 +227,23 @@
 			$('select').material_select();
 			Materialize.updateTextFields();
 		});
+		<% if (gym.winner == 'show') { %>
+
+		document.querySelector('#hideMe').style.display = 'block'
+
+		let newH2 = document.createElement('h2')
+
+		newH2.style.innerText = 'Winner!'
+
+		document.querySelector('#gymWinner').appendChild('newH2')
+
+		newH2 = document.createElement('h2')
+
+		newH2.style.innerText = 'Loser!'
+
+		document.querySelector('#gymLoser').appendChild('newH2')
+
+		<% } %>
 	</script>
 
 </html>
