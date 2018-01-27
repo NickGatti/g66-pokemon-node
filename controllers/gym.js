@@ -81,7 +81,6 @@ module.exports = {
                     res.render( 'gymHome', {
                         title: 'The Gym',
                         pokemon: pokemonData,
-                        trainers: trainerData,
                         gym: req.session.user.gym,
                         actionFlag: true
                     } );
