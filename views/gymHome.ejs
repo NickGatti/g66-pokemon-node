@@ -154,14 +154,14 @@
 
 																<% if (pokemon[i].id == gym[key].id) { %>
 
-																	<% if (gym.winner.id == pokemon[i].id && oneWinner === false && !gym.halFull) { %>
+																	<% if (gym.winner.id == gym[key].id && (key == 'p1' || key == 'p2') && oneWinner == false && !gym.halFull) { %>
 
 																		<div id="gymWinner"
 																		     class="col s6">
 																			<div class="card indigo z-depth-3">
 																				<div class="card-content white-text">
 																					<h2 class="blue-text text-accent-4"><%= pokemon[i].name %></h2>
-																					<h4 class="winTitle">Trainable Pokemon</h4> Stats:
+																					<h4 id="winTitle">Trainable Pokemon</h4> Stats:
 																				</div>
 																				<div class="card-action lime-text text-accent-4">
 																					<h4>Attack power:
@@ -177,14 +177,14 @@
 
 																		<% oneWinner = true %>
 
-																			<% } else if (gym.winner.id != pokemon[i].id && oneLoser === false && !gym.halFull) { %>
+																			<% } else if (gym.winner.id != gym[key].id && (key == 'p1' || key == 'p2') && oneLoser === false && !gym.halFull) { %>
 
 																				<div id="gymLoser"
 																				     class="col s6">
 																					<div class="card indigo z-depth-3">
 																						<div class="card-content white-text">
 																							<h2 class="blue-text text-accent-4"><%= pokemon[i].name %></h2>
-																							<h4 class="winTitle">Trainable Pokemon</h4> Stats:
+																							<h4 id="loseTitle">Trainable Pokemon</h4> Stats:
 																						</div>
 																						<div class="card-action lime-text text-accent-4">
 																							<h4>Attack power:
@@ -198,7 +198,7 @@
 																					</div>
 																				</div>
 
-																				<% oneLoser = false %>
+																				<% oneLoser = true %>
 
 																					<% } %>
 																						<% } %>
@@ -246,18 +246,20 @@
 			$('select').material_select();
 			Materialize.updateTextFields();
 		});
-		<% if (gym.winner == 'show') { %>
-
-		document.querySelector('#hideMe').style.display = 'block'
-
-		document.querySelector('#gymLoser').style.display = 'none'
-
-		document.querySelector('#gymWinner').listClasses.remove('s6')
-		document.querySelector('#gymWinner').listClasses.add('s12')
-
-		document.querySelector('#gymWinner>.winTitle').innerText = 'Winner'
-
-		<% } %>
+		window.addEventListener('load', function() {
+			<% if (gym.winner.state == 'show') { %>
+			window.setTimeout(() => {
+				<% if (gym.winner == false) { %>
+				document.getElementById('hideMe').style.display = 'block'
+				<% } %>
+				document.getElementById('gymLoser').style.display = 'none'
+				document.getElementById('gymWinner').classList.remove('s6')
+				document.getElementById('gymWinner').classList.add('s12')
+				document.getElementById('gymWinner').classList.add('center-align')
+				document.getElementById('winTitle').innerText = 'Winner'
+			}, 700)
+			<% } %>
+		})
 	</script>
 
 </html>

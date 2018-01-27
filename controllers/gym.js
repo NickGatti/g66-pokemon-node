@@ -181,17 +181,11 @@ module.exports = {
                 cp: req.session.user.gym.winner.cp
             } )
             .then( () => {
-
-                console.log( 'here' );
-
                 knex( 'pokemon' )
                     .select( 'pokemon.id', 'pokemon.name', 'pokemon.cp', 'trainers.name AS trainer_name' )
                     .join( 'trainers', 'trainers.id', 'pokemon.trainer_id' )
                     .then( ( pokemonData ) => {
-
-
-                        req.session.user.gym.winner = 'show'
-
+                        req.session.user.gym.winner.state = 'show'
                         req.session.save( () => {
                             res.render( 'gymHome', {
                                 title: 'The Gym',
