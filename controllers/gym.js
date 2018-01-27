@@ -24,9 +24,23 @@ function checkForFullGym( req ) {
     }
 }
 
+function checkSession( req ) {
+    if ( req.session ) {
+        if ( req.session.user ) {
+            return true
+        } else {
+            return false
+        }
+    } else {
+        return false
+    }
+    return false
+}
+
 module.exports = {
 
     assign: function ( req, res, next ) {
+        if ( !checkSession( req ) ) res.redirect( '/pokemon' );
         if ( !req.session.user.gym.p1 ) {
             req.session.user.gym.p1 = {
                 id: req.params.id
@@ -58,7 +72,7 @@ module.exports = {
     },
 
     remove: function ( req, res, next ) {
-
+        if ( !checkSession( req ) ) res.redirect( '/pokemon' );
         for ( let key in req.session.user.gym ) {
 
             if ( req.session.user.gym[ key ] ) {
@@ -72,7 +86,7 @@ module.exports = {
     },
 
     home: function ( req, res, next ) {
-
+        if ( !checkSession( req ) ) res.redirect( '/pokemon' );
         if ( req.session.user.gym.full ) {
             knex( 'pokemon' )
                 .select( 'pokemon.id', 'pokemon.name', 'pokemon.cp', 'trainers.name AS trainer_name' )
@@ -100,6 +114,7 @@ module.exports = {
     },
 
     homeAssign: function ( req, res, next ) {
+        if ( !checkSession( req ) ) res.redirect( '/pokemon' );
         if ( req.body.pokemon1 === req.body.pokemon2 ) {
             knex( 'pokemon' )
                 .then( ( pokemonData ) => {
