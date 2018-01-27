@@ -19,9 +19,14 @@ module.exports = {
         if ( !req.session.user ) {
             req.session.user = {}
             req.session.user.gym = {
-                p1: null,
-                p2: null,
-                full: false
+                p1: {
+                    id: false
+                },
+                p2: {
+                    id: false
+                },
+                full: false,
+                halfFull: false
             }
             req.session.save( function () {
                 console.log( 'No session found' );

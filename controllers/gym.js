@@ -8,12 +8,19 @@ function home( req, res ) {
 }
 
 function checkForFullGym( req ) {
-    if ( req.session.user.gym.p1 && req.session.user.gym.p2 ) {
-        if ( req.session.user.gym.p1.id && req.session.user.gym.p2.id ) {
-            req.session.user.gym.full = true
-        } else {
-            req.session.user.gym.full = false
-        }
+    if ( req.session.user.gym.p1.id && !req.session.user.gym.p2.id ) {
+        req.session.user.gym.halfFull = true
+    } else if ( req.session.user.gym.p2.id && !req.session.user.gym.p1.id ) {
+        req.session.user.gym.halfFull = true
+    } else {
+        req.session.user.gym.halfFull = false
+    }
+
+    if ( req.session.user.gym.p1.id && req.session.user.gym.p2.id ) {
+        req.session.user.gym.full = true
+        req.session.user.gym.halfFull = false
+    } else {
+        req.session.user.gym.full = false
     }
 }
 
@@ -52,7 +59,6 @@ module.exports = {
 
     remove: function ( req, res, next ) {
 
-
         for ( let key in req.session.user.gym ) {
 
             if ( req.session.user.gym[ key ] ) {
@@ -62,28 +68,23 @@ module.exports = {
             }
         }
 
-        if ( req.session.user.gym.p1 && req.session.user.gym.p2 ) {
-            if ( req.session.user.gym.p1.id && req.session.user.gym.p2.id ) {
-                req.session.user.gym.full = true
-            } else {
-                req.session.user.gym.full = false
-            }
-        }
-
-        req.session.save( function () {
-            res.redirect( '/pokemon' );
-        } )
-
+        home( req, res )
     },
 
     home: function ( req, res, next ) {
+
         knex( 'pokemon' )
             .then( ( pokemonData ) => {
                 res.render( 'gymHome', {
                     title: 'The Gym',
-                    pokemon: pokemonData
+                    pokemon: pokemonData,
+                    gym: req.session.user.gym
                 } );
             } )
+    },
+
+    homeAssign: function ( req, res, next ) {
+
     }
 
 };
