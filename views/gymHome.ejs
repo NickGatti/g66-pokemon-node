@@ -75,12 +75,44 @@
 						<input type="submit" class="waves-effect indigo lighten-1 waves-light btn" value="Assign to Gym">
 						<br>
 					</form>
-					<% } %>
-						<% if (!actionFlag) { %>
+					<% if (!actionFlag) { %>
 
-							<h3 class="red-text">Please Select Different Pokemon!</h3>
+						<h3 class="red-text">Please Select Different Pokemon!</h3>
 
-							<% } %>
+						<% } %>
+							<% } else { %>
+
+								<div class="row">
+
+									<% for (let key in gym) { %>
+
+										<% for (let i = 0; i < pokemon.length; i++) { %>
+
+											<% if (pokemon[i].id == gym[key].id) { %>
+
+												<div class="col s6">
+													<div class="card indigo z-depth-3">
+														<div class="card-content white-text">
+															<h2 class="blue-text text-accent-4"><%= pokemon[i].name %></h2>
+															<h4>Trainable Pokemon</h4> Stats:
+														</div>
+														<div class="card-action lime-text text-accent-4">
+															<h4>Attack power:
+                                <%= pokemon[i].cp %>
+                            </h4>
+															<h4>Gym status: In Gym</h4>
+															<h4>Trainer:
+                                <%= pokemon[i].trainer_name %>
+                            </h4>
+														</div>
+													</div>
+												</div>
+												<% } %>
+													<% } %>
+														<% } %>
+								</div>
+								<% } %>
+
 			</div>
 
 			<div class="fillAreaPokemon">

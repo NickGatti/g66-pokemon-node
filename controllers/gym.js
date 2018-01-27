@@ -72,6 +72,23 @@ module.exports = {
     },
 
     home: function ( req, res, next ) {
+
+        if ( req.session.user.gym.full ) {
+            knex( 'pokemon' )
+                .select( 'pokemon.id', 'pokemon.name', 'pokemon.cp', 'trainers.name AS trainer_name' )
+                .join( 'trainers', 'trainers.id', 'pokemon.trainer_id' )
+                .then( ( pokemonData ) => {
+                    res.render( 'gymHome', {
+                        title: 'The Gym',
+                        pokemon: pokemonData,
+                        trainers: trainerData,
+                        gym: req.session.user.gym,
+                        actionFlag: true
+                    } );
+                } )
+            return
+        }
+
         knex( 'pokemon' )
             .then( ( pokemonData ) => {
                 res.render( 'gymHome', {
