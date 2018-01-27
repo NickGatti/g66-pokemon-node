@@ -2,6 +2,7 @@
 const index = require( "../controllers/index.js" );
 const pokemon = require( "../controllers/pokemon.js" );
 const gym = require( "../controllers/gym.js" );
+const trainers = require( "../controllers/trainers.js" );
 
 module.exports = function ( app ) {
 
@@ -24,5 +25,7 @@ module.exports = function ( app ) {
     app.post( '/gym/assign/:id', gym.assign )
 
     app.post( '/gym/remove/:id', gym.remove )
+
+    app.get( '/trainers', trainers.view )
 
 }
