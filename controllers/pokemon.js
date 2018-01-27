@@ -46,7 +46,7 @@ module.exports = {
                 cp: req.body.cp,
                 in_gym: req.body.in_gym
             } ).then( () => {
-                res.redirect( '/home' );
+                res.redirect( '/pokemon' );
             } )
     },
 
