@@ -72,19 +72,36 @@ module.exports = {
     },
 
     home: function ( req, res, next ) {
-
         knex( 'pokemon' )
             .then( ( pokemonData ) => {
                 res.render( 'gymHome', {
                     title: 'The Gym',
                     pokemon: pokemonData,
-                    gym: req.session.user.gym
+                    gym: req.session.user.gym,
+                    actionFlag: true
                 } );
             } )
     },
 
     homeAssign: function ( req, res, next ) {
-
+        if ( req.body.pokemon1 === req.body.pokemon2 ) {
+            knex( 'pokemon' )
+                .then( ( pokemonData ) => {
+                    res.render( 'gymHome', {
+                        title: 'The Gym',
+                        pokemon: pokemonData,
+                        gym: req.session.user.gym,
+                        actionFlag: false
+                    } );
+                } )
+        } else if ( req.body.pokemon1 != req.body.pokemon2 ) {
+            req.session.user.gym.p1.id = req.body.pokemon1
+            req.session.user.gym.p2.id = req.body.pokemon2
+            checkForFullGym( req )
+            req.session.save( () => {
+                res.redirect( '/gym/home' );
+            } )
+        }
     }
 
 };

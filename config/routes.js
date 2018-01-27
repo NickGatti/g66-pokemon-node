@@ -30,6 +30,6 @@ module.exports = function ( app ) {
 
     app.get( '/gym/home', gym.home )
 
-    app.get( '/gym/homeAssign', gym.homeAssign )
+    app.post( '/gym/homeAssign', gym.homeAssign )
 
 }
