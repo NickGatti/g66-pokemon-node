@@ -5,10 +5,15 @@ module.exports = {
     view: function ( req, res ) {
         knex( 'trainers' )
             .then( ( trainerData ) => {
-                res.render( 'trainers', {
-                    title: 'Trainers',
-                    trainers: trainerData
-                } );
+                knex( 'pokemon' )
+                    .then( ( pokemonData ) => {
+                        res.render( 'trainers', {
+                            title: 'Trainers',
+                            trainers: trainerData,
+                            pokemon: pokemonData,
+                            gym: req.session.user.gym
+                        } );
+                    } )
             } )
     }
 

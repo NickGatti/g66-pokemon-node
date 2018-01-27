@@ -15,7 +15,7 @@
 
 		<style media="screen">
 			.card-action {
-				min-height: 315px !important;
+				min-height: 135px !important;
 			}
 		</style>
 	</head>
@@ -58,6 +58,82 @@
 				<h2><%= title %></h2>
 			</div>
 
+			<div class="container">
+				<% for (let i = 0; i < trainers.length; i++) { %>
+
+					<div class="row">
+						<div class="col">
+							<div class="card indigo darken-3">
+								<div class="card-content white-text">
+									<span class="card-title"><%= trainers[i].name %></span>
+									<p>Pokemon Master Trainer </p>
+								</div>
+								<div class="card-action">
+									<div class="row">
+										<% for (let z = 0; z < pokemon.length; z++) { %>
+											<% if (pokemon[z].trainer_id == trainers[i].id) { %>
+												<div class="col s6 m6 lg6">
+													<div class="card grey lighten-3">
+														<br>
+														<div class="container">
+															<h3><%= pokemon[z].name %></h3>
+															<div class="card-content">
+																<h4>Owner:
+            <%= trainers[i].name %>
+          </h4>
+																<br>
+
+																<h5>Attack Power:
+            <%= pokemon[i].cp %>
+          </h5>
+
+																<br>
+
+																<% let inTraining = false %>
+
+																	<% for (let key in gym) { %>
+
+																		<% if (gym[key]) { %>
+
+																			<% if (gym[key].id == trainers[i].id ) { %>
+
+																				<% inTraining = true %>
+
+																					<% } else { %>
+
+																						<% inTraining = false %>
+
+																							<% } %>
+
+																								<% } %>
+
+																									<% } %>
+																										<% if (inTraining) { %>
+
+																											<h5>Training</h5>
+
+																											<% } else { %>
+
+																												<h5>Not Training</h5>
+
+																												<%	} %>
+
+															</div>
+															<div class="card-action">
+																<a class="blue-text" href="#">This is a link</a>
+															</div>
+														</div>
+													</div>
+												</div>
+												<% } %>
+													<% } %>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<% } %>
+			</div>
 
 			<div class="pokemon-content mdl-layout__content">
 				<div class="app-content pokemon-wear-section">
