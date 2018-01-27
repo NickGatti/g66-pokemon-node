@@ -55,22 +55,23 @@
 			<div class="container">
 				<br>
 				<h1><%= title %></h1>
-				<% if (!gym.full || !gym.halfFull ) { %>
+				<br>
+				<% if (!gym.full && !gym.halfFull ) { %>
 					<form class="col s12" action="/gym/homeAssign" method="post">
-						<select name="pokemon1">
+						Gym Slot One:<select name="pokemon1">
             <% for (let i = 0; i < pokemon.length; i++) { %>
 
               <option value="<%= pokemon[i].id %>"><%= pokemon[i].name %></option>
 
             <% } %>
-          </select>
-						<select name="pokemon2">
+          </select><br> Gym Slot Two:<select name="pokemon2">
             <% for (let i = pokemon.length - 1; i >= 0; i--) { %>
 
               <option value="<%= pokemon[i].id %>"><%= pokemon[i].name %></option>
 
             <% } %>
             </select>
+						<br>
 						<input type="submit" class="waves-effect indigo lighten-1 waves-light btn" value="Assign to Gym">
 						<br>
 					</form>
@@ -99,6 +100,7 @@
 	<script type="text/javascript">
 		$( document ).ready( function () {
 			$( 'select' ).material_select();
+			Materialize.updateTextFields();
 		} );
 	</script>
 
